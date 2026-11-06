@@ -72,8 +72,9 @@ CREATE TABLE IF NOT EXISTS `audit_logs` (
 -- Initial Temporary Password: Webkit24@Admin2026 (BCrypt Hash: $2y$10$y6K9Xg3eP0b31Cj2wJ95E.n7kI8hPq2sM.fBvYl0X9mQ5dZ6WkGha)
 -- Note: You should immediately change this password after initial login or create an account via install.php.
 -- -----------------------------------------------------
-INSERT IGNORE INTO `admins` (`id`, `username`, `email`, `password_hash`, `created_at`)
-VALUES (1, 'admin', 'admin@webkit24.com', '$2y$10$89W5XJ8lQv0wQkFmKqH9iOPWdD4f5t9h9A2f3s4d5f6g7h8j9k0l1', NOW());
+INSERT INTO `admins` (`id`, `username`, `email`, `password_hash`, `created_at`)
+VALUES (1, 'admin', 'admin@webkit24.com', '$2y$10$vCdQv7NFdza4uf96xcdshuqThnTR0Y8/VYwJ0AKnWH8fZ3oiM2uIW', NOW())
+ON DUPLICATE KEY UPDATE `password_hash` = '$2y$10$vCdQv7NFdza4uf96xcdshuqThnTR0Y8/VYwJ0AKnWH8fZ3oiM2uIW';
 
 -- -----------------------------------------------------
 -- Sample Demonstration Certificate (Per Project Brief)

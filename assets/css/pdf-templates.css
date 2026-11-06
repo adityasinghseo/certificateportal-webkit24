@@ -580,15 +580,10 @@
   text-align: center;
 }
 
-.cert-meta-icon {
-  width: 19px !important;
-  height: 19px !important;
-  max-width: 19px !important;
-  max-height: 19px !important;
-  color: #FF4938 !important;
-  stroke: #FF4938 !important;
-  margin: 0 auto 3px auto !important;
-  display: block !important;
+.cert-date-box {
+  min-width: 105px;
+  padding: 3px 8px;
+  border-top: 1.6px solid #FF4938;
 }
 
 .cert-meta-label {
@@ -637,11 +632,11 @@
 }
 
 .cert-doc-qr-frame {
-  width: 18mm;
-  height: 18mm;
+  width: 21mm;
+  height: 21mm;
   background: #FFFFFF;
   border: 1px solid #CBD5E1;
-  padding: 1mm;
+  padding: 1.2mm;
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -651,10 +646,7 @@
   box-sizing: border-box;
 }
 
-.cert-doc-qr-frame canvas {
-  display: none !important;
-}
-
+.cert-doc-qr-frame canvas,
 .cert-doc-qr-frame img {
   width: 100% !important;
   height: 100% !important;

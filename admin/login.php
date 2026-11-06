@@ -58,7 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             } catch (Exception $e) {
                 error_log("Login error: " . $e->getMessage());
-                $error = 'An internal system error occurred. Please try again.';
+                // Provide clear error message to assist host/database diagnostics
+                $error = 'Unable to connect to database. ' . htmlspecialchars($e->getMessage());
             }
         }
     }

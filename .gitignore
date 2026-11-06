@@ -7,4 +7,6 @@ Thumbs.db
 # Temporary Logs & Archives
 *.log
 *.zip
+node_modules/
+
 

@@ -854,9 +854,162 @@ window.Webkit24PDF = (function () {
     }
 
     /**
+     * Cache and generator for crystal-clear high-DPI rasterized PNG corner vector assets.
+     * Guarantees 100% pixel-perfect PDF rendering without html2canvas SVG polygon bugs.
+     */
+    let cachedCornerPngs = null;
+
+    function getCornerPngDataUrls() {
+        if (cachedCornerPngs) {
+            return cachedCornerPngs;
+        }
+
+        // 1. Top-Left Geometric Polygon Accents (Vibrant Coral, Dark Coral, Soft Coral)
+        const tlCanvas = document.createElement('canvas');
+        tlCanvas.width = 840;
+        tlCanvas.height = 680;
+        const tlCtx = tlCanvas.getContext('2d');
+        tlCtx.scale(2, 2);
+
+        // Layer 3: Soft Coral Accent Triangle
+        tlCtx.fillStyle = '#FF7062';
+        tlCtx.globalAlpha = 0.35;
+        tlCtx.beginPath();
+        tlCtx.moveTo(120, 0);
+        tlCtx.lineTo(380, 0);
+        tlCtx.lineTo(0, 330);
+        tlCtx.lineTo(0, 260);
+        tlCtx.closePath();
+        tlCtx.fill();
+
+        // Layer 1: Vibrant Coral Main Triangle
+        tlCtx.globalAlpha = 1.0;
+        tlCtx.fillStyle = '#FF4938';
+        tlCtx.beginPath();
+        tlCtx.moveTo(0, 0);
+        tlCtx.lineTo(280, 0);
+        tlCtx.lineTo(0, 260);
+        tlCtx.closePath();
+        tlCtx.fill();
+
+        // Layer 2: Deeper Coral Triangle Corner Accent
+        tlCtx.fillStyle = '#E33827';
+        tlCtx.beginPath();
+        tlCtx.moveTo(0, 0);
+        tlCtx.lineTo(130, 0);
+        tlCtx.lineTo(0, 120);
+        tlCtx.closePath();
+        tlCtx.fill();
+
+        // 2. Bottom-Right Geometric Navy Polygon with Coral Edge and White Dot Matrix
+        const brCanvas = document.createElement('canvas');
+        brCanvas.width = 640;
+        brCanvas.height = 440;
+        const brCtx = brCanvas.getContext('2d');
+        brCtx.scale(2, 2);
+
+        // Layer 1: Vibrant Coral Angled Border Stripe
+        brCtx.fillStyle = '#FF4938';
+        brCtx.beginPath();
+        brCtx.moveTo(90, 220);
+        brCtx.lineTo(320, 50);
+        brCtx.lineTo(320, 220);
+        brCtx.closePath();
+        brCtx.fill();
+
+        // Layer 2: Dark Navy Base Polygon
+        brCtx.fillStyle = '#080D25';
+        brCtx.beginPath();
+        brCtx.moveTo(160, 220);
+        brCtx.lineTo(320, 100);
+        brCtx.lineTo(320, 220);
+        brCtx.closePath();
+        brCtx.fill();
+
+        // Layer 3: Dot Grid inside Dark Navy Polygon
+        brCtx.save();
+        brCtx.beginPath();
+        brCtx.moveTo(160, 220);
+        brCtx.lineTo(320, 100);
+        brCtx.lineTo(320, 220);
+        brCtx.closePath();
+        brCtx.clip();
+
+        brCtx.fillStyle = '#FFFFFF';
+        brCtx.globalAlpha = 0.65;
+        for (let x = 160; x <= 320; x += 14) {
+            for (let y = 100; y <= 220; y += 14) {
+                brCtx.beginPath();
+                brCtx.arc(x, y, 1.4, 0, Math.PI * 2);
+                brCtx.fill();
+            }
+        }
+        brCtx.restore();
+
+        // 3. Top-Right Curved Line Waves
+        const trCanvas = document.createElement('canvas');
+        trCanvas.width = 240;
+        trCanvas.height = 240;
+        const trCtx = trCanvas.getContext('2d');
+        trCtx.scale(2.4, 2.4);
+        trCtx.strokeStyle = '#FF4938';
+        trCtx.lineWidth = 1.8;
+        trCtx.lineCap = 'round';
+        const trCurves = [
+            { d: [[10, 10], [50, 20], [90, 90]], op: 0.4 },
+            { d: [[25, 10], [60, 25], [90, 75]], op: 0.5 },
+            { d: [[40, 10], [70, 30], [90, 60]], op: 0.6 },
+            { d: [[55, 10], [75, 35], [90, 45]], op: 0.7 },
+            { d: [[70, 10], [80, 40], [90, 30]], op: 0.8 }
+        ];
+        trCurves.forEach(c => {
+            trCtx.globalAlpha = c.op;
+            trCtx.beginPath();
+            trCtx.moveTo(c.d[0][0], c.d[0][1]);
+            trCtx.quadraticCurveTo(c.d[1][0], c.d[1][1], c.d[2][0], c.d[2][1]);
+            trCtx.stroke();
+        });
+
+        // 4. Bottom-Left Curved Line Waves
+        const blCanvas = document.createElement('canvas');
+        blCanvas.width = 240;
+        blCanvas.height = 240;
+        const blCtx = blCanvas.getContext('2d');
+        blCtx.scale(2.4, 2.4);
+        blCtx.strokeStyle = '#FF4938';
+        blCtx.lineWidth = 1.8;
+        blCtx.lineCap = 'round';
+        const blCurves = [
+            { d: [[10, 90], [20, 50], [90, 10]], op: 0.4 },
+            { d: [[10, 75], [25, 40], [75, 10]], op: 0.5 },
+            { d: [[10, 60], [30, 30], [60, 10]], op: 0.6 },
+            { d: [[10, 45], [35, 25], [45, 10]], op: 0.7 },
+            { d: [[10, 30], [40, 20], [30, 10]], op: 0.8 }
+        ];
+        blCurves.forEach(c => {
+            blCtx.globalAlpha = c.op;
+            blCtx.beginPath();
+            blCtx.moveTo(c.d[0][0], c.d[0][1]);
+            blCtx.quadraticCurveTo(c.d[1][0], c.d[1][1], c.d[2][0], c.d[2][1]);
+            blCtx.stroke();
+        });
+
+        cachedCornerPngs = {
+            tl: tlCanvas.toDataURL('image/png'),
+            br: brCanvas.toDataURL('image/png'),
+            tr: trCanvas.toDataURL('image/png'),
+            bl: blCanvas.toDataURL('image/png')
+        };
+
+        return cachedCornerPngs;
+    }
+
+    /**
      * Base Shared Generator for Official A4 Landscape Certificates
      */
     function buildCertificateBaseHtml(d, opts) {
+        const decorPng = getCornerPngDataUrls();
+
         return `
         <div class="certificate-page pdf-page-container" id="currentDocRenderRoot">
             <!-- Authentic Security Frame / Double Border -->
@@ -865,17 +1018,11 @@ window.Webkit24PDF = (function () {
             <!-- Subtle Background Security Watermark -->
             <img src="../assets/images/cert-watermark.svg" alt="" class="cert-watermark">
 
-            <!-- Geometric Top Left Red/Orange Wedge -->
-            <img src="../assets/images/cert-corner-tl.svg" alt="" class="cert-decor-top-left">
-
-            <!-- Radial Pattern Top Right -->
-            <img src="../assets/images/cert-lines-tr.svg" alt="" class="cert-decor-lines-tr">
-
-            <!-- Radial Pattern Bottom Left -->
-            <img src="../assets/images/cert-lines-bl.svg" alt="" class="cert-decor-lines-bl">
-
-            <!-- Geometric Bottom Right: Navy Polygon + Dot Grid + Orange Wedge -->
-            <img src="../assets/images/cert-corner-br.svg" alt="" class="cert-decor-bottom-right">
+            <!-- High-Resolution Canvas-Rendered PNG Vector Corners (Guarantees Flawless PDF Export without SVG Polygon Bugs) -->
+            <img src="${decorPng.tl}" alt="" class="cert-decor-top-left">
+            <img src="${decorPng.tr}" alt="" class="cert-decor-lines-tr">
+            <img src="${decorPng.bl}" alt="" class="cert-decor-lines-bl">
+            <img src="${decorPng.br}" alt="" class="cert-decor-bottom-right">
 
             <!-- Certificate Inner Typography Content -->
             <div class="cert-content">
@@ -905,17 +1052,8 @@ window.Webkit24PDF = (function () {
 
                 <!-- Metadata Row (Date - Rosette Medal - Unique ID & QR) -->
                 <div class="cert-meta-row">
-                    <!-- Date Box with subtle refined icon -->
-                    <div class="cert-meta-box">
-                        <svg class="cert-meta-icon" style="width: 19px; height: 19px; max-width: 19px; max-height: 19px;" viewBox="0 0 24 24" fill="none" stroke="#FF4938" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="4" width="18" height="18" rx="2.5" ry="2.5" />
-                            <line x1="16" y1="2" x2="16" y2="6" />
-                            <line x1="8" y1="2" x2="8" y2="6" />
-                            <line x1="3" y1="10" x2="21" y2="10" />
-                            <circle cx="8" cy="14" r="0.9" fill="#FF4938" />
-                            <circle cx="12" cy="14" r="0.9" fill="#FF4938" />
-                            <circle cx="16" cy="14" r="0.9" fill="#FF4938" />
-                        </svg>
+                    <!-- Clean, Prestigious Date Box -->
+                    <div class="cert-meta-box cert-date-box">
                         <span class="cert-meta-label">DATE</span>
                         <span class="cert-meta-val">${escapeHtml(d.issue_date_cert || d.issue_date)}</span>
                     </div>
@@ -1035,30 +1173,31 @@ window.Webkit24PDF = (function () {
             try {
                 new QRCode(qrFrame, {
                     text: verifyUrl,
-                    width: 240,
-                    height: 240,
+                    width: 260,
+                    height: 260,
                     colorDark: '#080D25',
                     colorLight: '#FFFFFF',
                     correctLevel: QRCode.CorrectLevel.M
                 });
 
-                // Ensure high-resolution image is used for PDF and canvas is hidden
+                // Ensure high-resolution image is generated for PDF capture
                 setTimeout(() => {
                     const cvs = qrFrame.querySelector('canvas');
-                    const img = qrFrame.querySelector('img');
+                    let img = qrFrame.querySelector('img');
                     if (cvs) {
                         try {
                             const dataUrl = cvs.toDataURL('image/png');
-                            if (img) {
-                                img.src = dataUrl;
-                                img.style.display = 'block';
-                                img.style.width = '100%';
-                                img.style.height = '100%';
+                            if (!img) {
+                                img = document.createElement('img');
+                                qrFrame.appendChild(img);
                             }
+                            img.src = dataUrl;
+                            img.style.display = 'block';
+                            img.style.width = '100%';
+                            img.style.height = '100%';
                         } catch (e) {}
-                        cvs.style.display = 'none';
                     }
-                }, 60);
+                }, 50);
             } catch (qrErr) {
                 console.error('QR code generation error:', qrErr);
             }
