@@ -33,6 +33,10 @@ define('SUPPORT_EMAIL', 'support@webkit24.com');
 define('CONTACT_URL', 'https://webkit24.com/#contact');
 define('ABOUT_URL', 'https://webkit24.com/#about');
 
+// Base URLs
+define('BASE_URL', 'https://certificate.webkit24.com/');
+define('MAIN_SITE_URL', 'https://webkit24.com/');
+
 // Brand Colors
 define('COLOR_PRIMARY', '#FF4938'); // Orange/Coral
 define('COLOR_NAVY', '#080D25');    // Dark Navy
@@ -60,3 +64,12 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// MySQL Production Database Settings (Hostinger)
+define('DB_DRIVER', 'mysql');
+define('DB_HOST', 'localhost');
+define('DB_PORT', '3306');
+define('DB_NAME', 'u908716340_certificate');
+define('DB_USER', 'u908716340_certificate');
+define('DB_PASS', '*faNkpufAV3');
+define('DB_CHARSET', 'utf8mb4');
+define('FORCE_MYSQL', true);

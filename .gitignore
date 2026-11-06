@@ -4,5 +4,7 @@ Thumbs.db
 *.swp
 *~
 
-# Temporary Logs
+# Temporary Logs & Archives
 *.log
+*.zip
+
