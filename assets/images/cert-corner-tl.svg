@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 340" width="420" height="340">
+  <!-- Layer 3: Soft Coral Triangle Accent -->
+  <polygon points="120,0 380,0 0,330 0,260" fill="#FF7062" opacity="0.35" />
+  <!-- Layer 1: Vibrant Brand Coral Main Triangle -->
+  <polygon points="0,0 280,0 0,260" fill="#FF4938" />
+  <!-- Layer 2: Deeper Coral Accent Triangle -->
+  <polygon points="0,0 130,0 0,120" fill="#E33827" />
+</svg>
+

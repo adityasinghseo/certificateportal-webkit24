@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 115" width="100" height="115">
+  <defs>
+    <!-- Ribbon Gradient -->
+    <linearGradient id="ribbonGradNavy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080D25"/>
+      <stop offset="60%" stop-color="#141B3B"/>
+      <stop offset="100%" stop-color="#080D25"/>
+    </linearGradient>
+    <linearGradient id="ribbonEdge" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF4938"/>
+      <stop offset="100%" stop-color="#FF6B5B"/>
+    </linearGradient>
+    <!-- Seal Gradient -->
+    <linearGradient id="sealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0E163B"/>
+      <stop offset="50%" stop-color="#080D25"/>
+      <stop offset="100%" stop-color="#040714"/>
+    </linearGradient>
+    <!-- Drop Shadow for Authentic Depth -->
+    <filter id="medalShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#080D25" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#medalShadow)">
+    <!-- Ribbon Tail Left -->
+    <polygon points="34,54 18,102 36,92 48,100 44,54" fill="url(#ribbonGradNavy)"/>
+    <polygon points="18,102 22,102 36,92 48,100 46,100 36,93" fill="url(#ribbonEdge)" opacity="0.9"/>
+    
+    <!-- Ribbon Tail Right -->
+    <polygon points="66,54 82,102 64,92 52,100 56,54" fill="url(#ribbonGradNavy)"/>
+    <polygon points="82,102 78,102 64,92 52,100 54,100 64,93" fill="url(#ribbonEdge)" opacity="0.9"/>
+
+    <!-- Outer Rosette Scalloped Edge (24 facets) -->
+    <path d="
+      M 50,4 
+      L 54,7 L 59,5 L 63,9 L 68,9 L 71,13 L 76,14 L 78,19 L 83,21 L 84,26 L 88,30 L 88,35 L 91,40 L 89,45 L 91,50 L 88,55 L 88,60 L 84,64 L 83,69 L 78,71 L 76,76 L 71,77 L 68,81 L 63,81 L 59,85 L 54,83 L 50,86 
+      L 46,83 L 41,85 L 37,81 L 32,81 L 29,77 L 24,76 L 22,71 L 17,69 L 16,64 L 12,60 L 12,55 L 9,50 L 11,45 L 9,40 L 12,35 L 12,30 L 16,26 L 17,21 L 22,19 L 24,14 L 29,13 L 32,9 L 37,9 L 41,5 L 46,7 Z" 
+      fill="#080D25" stroke="#FF4938" stroke-width="1.2" stroke-linejoin="round" />
+
+    <!-- Main Outer Ring -->
+    <circle cx="50" cy="45" r="35" fill="url(#sealGrad)" stroke="#FFFFFF" stroke-width="2"/>
+    
+    <!-- Coral Accent Circle -->
+    <circle cx="50" cy="45" r="31" fill="none" stroke="#FF4938" stroke-width="1.4"/>
+    
+    <!-- Security Beaded Ring -->
+    <circle cx="50" cy="45" r="28" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="2 2" opacity="0.75"/>
+    
+    <!-- Inner Dark Core -->
+    <circle cx="50" cy="45" r="23" fill="#080D25" stroke="rgba(255, 73, 56, 0.5)" stroke-width="1"/>
+
+    <!-- Prestigious 5-Point Center Star -->
+    <polygon points="50,28 54,39 65,40.5 56.5,48.5 59,60 50,54 41,60 43.5,48.5 35,40.5 46,39" fill="#FFFFFF"/>
+    <circle cx="50" cy="45" r="3.2" fill="#FF4938"/>
+  </g>
+</svg>

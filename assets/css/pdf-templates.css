@@ -1,0 +1,801 @@
+/* ==========================================================================
+   Webkit24 PDF Document Templates
+   Pixel-perfect styles for:
+   1. Internship Offer Letter (A4 Portrait)
+   2. Internship Certificate (A4 Landscape)
+   ========================================================================== */
+
+/* -------------------------------------------------------------
+   Common Document Setup
+   ------------------------------------------------------------- */
+.pdf-preview-stage {
+  background-color: #525659;
+  padding: 30px 20px;
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 400px;
+  border-radius: var(--radius-md);
+}
+
+.pdf-page-container {
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  background: #FFFFFF;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden !important;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+  page-break-after: avoid !important;
+  page-break-before: avoid !important;
+}
+
+/* =============================================================
+   1. INTERNSHIP OFFER LETTER (A4 Portrait: 210mm x 297mm)
+   ============================================================= */
+.offer-letter-page {
+  width: 210mm;
+  height: 296mm !important;
+  max-height: 296mm !important;
+  padding: 16mm 20mm 18mm 20mm;
+  background-color: #FFFFFF;
+  color: #080D25;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden !important;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+.ol-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.ol-logo-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.ol-logo-img {
+  height: 54px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  display: block;
+}
+
+.ol-address {
+  text-align: right;
+  font-size: 11pt;
+  color: #080D25;
+  line-height: 1.4;
+  font-weight: 500;
+  max-width: 260px;
+}
+
+.ol-title-wrap {
+  text-align: center;
+  margin: 18px 0 24px;
+}
+
+.ol-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 17pt;
+  font-weight: 800;
+  color: #080D25;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.ol-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12.5pt;
+  font-weight: 600;
+  color: #080D25;
+  margin-bottom: 20px;
+}
+
+.ol-recipient {
+  font-weight: 700;
+}
+
+.ol-date {
+  font-weight: 600;
+}
+
+.ol-body {
+  font-size: 11.2pt;
+  line-height: 1.55;
+  color: #080D25;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ol-body p {
+  text-align: justify;
+}
+
+.ol-param-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 6px 0;
+  font-size: 11.5pt;
+}
+
+.ol-param-item {
+  color: #080D25;
+}
+
+.ol-param-item strong {
+  font-weight: 700;
+  min-width: 100px;
+  display: inline-block;
+}
+
+.ol-section-title {
+  font-size: 12.5pt;
+  font-weight: 700;
+  color: #080D25;
+  margin-top: 8px;
+  margin-bottom: -4px;
+}
+
+.ol-bullets {
+  list-style-type: disc;
+  padding-left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11pt;
+}
+
+.ol-bullets li {
+  line-height: 1.45;
+}
+
+.ol-signoff {
+  margin-top: 14px;
+  font-size: 11.5pt;
+  line-height: 1.4;
+}
+
+.ol-signoff strong {
+  font-size: 12pt;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* Offer Letter & Formal Document Bottom Strip */
+.ol-footer-strip,
+.doc-footer-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #D1D5DB;
+  padding: 10px 22mm;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 9.5pt;
+  color: #080D25;
+  font-weight: 500;
+}
+
+.ol-footer-item,
+.doc-footer-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ol-footer-item svg,
+.doc-footer-item svg {
+  width: 15px;
+  height: 15px;
+  color: #080D25;
+}
+
+/* =============================================================
+   FORMAL DOCUMENT LETTER TEMPLATES (A4 Portrait: 210mm x 297mm)
+   Applies to:
+   - Internship Joining Letter
+   - Internship Completion Letter
+   - Internship Relieving Letter
+   - Job Offer Letter
+   - Job Appointment Letter
+   - Job Joining Letter
+   - Job Relieving Letter
+   ============================================================= */
+.doc-letter-page {
+  width: 210mm;
+  height: 296mm !important;
+  max-height: 296mm !important;
+  padding: 16mm 20mm 18mm 20mm;
+  background-color: #FFFFFF;
+  color: #080D25;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden !important;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+.doc-letter-ref-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 9.5pt;
+  font-weight: 600;
+  color: #64748B;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #E2E8F0;
+  margin-bottom: 10px;
+}
+
+.doc-table-params {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+  background: #F8F9FC;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #E2E8F0;
+}
+
+.doc-table-params tr:nth-child(even) {
+  background: #FFFFFF;
+}
+
+.doc-table-params td {
+  padding: 5px 10px;
+  font-size: 9.8pt;
+  color: #080D25;
+  border-bottom: 1px solid #EDF2F7;
+  line-height: 1.35;
+}
+
+.doc-table-params td.param-label {
+  font-weight: 700;
+  width: 32%;
+  color: #080D25;
+}
+
+.doc-table-params td.param-val {
+  font-weight: 500;
+  color: #1E293B;
+}
+
+/* Formal Dual Letter Signatures */
+.doc-letter-sigs-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 12px;
+  padding-top: 4px;
+}
+
+.doc-letter-sig-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 165px;
+}
+
+.doc-letter-sig-col img {
+  height: 38px;
+  max-width: 125px;
+  object-fit: contain;
+  margin-bottom: 3px;
+  display: block;
+}
+
+.doc-letter-sig-line {
+  width: 130px;
+  height: 1.2px;
+  background-color: #080D25;
+  margin-bottom: 4px;
+}
+
+.doc-letter-sig-name {
+  font-size: 8.8pt;
+  font-weight: 800;
+  color: #080D25;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.doc-letter-sig-title {
+  font-size: 7.2pt;
+  font-weight: 600;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Candidate Acceptance Endorsement Box */
+.doc-letter-acceptance {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border: 1px dashed #CBD5E1;
+  border-radius: 4px;
+  background: #F8F9FC;
+  font-size: 8.5pt;
+  color: #334155;
+  line-height: 1.35;
+}
+
+.doc-letter-acceptance strong {
+  color: #080D25;
+}
+
+/* =============================================================
+   2. INTERNSHIP CERTIFICATE (A4 Landscape: 297mm x 210mm)
+   ============================================================= */
+.certificate-page {
+  width: 297mm;
+  height: 209mm !important;
+  max-height: 209mm !important;
+  padding: 12mm 18mm 10mm;
+  background-color: #FFFFFF;
+  color: #080D25;
+  position: relative;
+  overflow: hidden !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+/* Authentic Security Frame & Border */
+.cert-security-frame {
+  position: absolute;
+  top: 6mm;
+  left: 6mm;
+  right: 6mm;
+  bottom: 6mm;
+  border: 1px solid rgba(8, 13, 37, 0.12);
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.cert-security-frame::after {
+  content: '';
+  position: absolute;
+  top: 2mm;
+  left: 2mm;
+  right: 2mm;
+  bottom: 2mm;
+  border: 0.6px solid rgba(255, 73, 56, 0.3);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+/* Subtle Security Guilloche Watermark in Background */
+.cert-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -46%);
+  width: 88mm;
+  height: 88mm;
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 1;
+  display: block;
+  object-fit: contain;
+}
+
+/* Background Geometric Shapes (Loaded as Image Elements for Crisp html2canvas Rendering) */
+.cert-decor-top-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 105mm;
+  height: 85mm;
+  pointer-events: none;
+  z-index: 1;
+  display: block;
+  object-fit: fill;
+}
+
+.cert-decor-bottom-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60mm;
+  height: 36mm;
+  pointer-events: none;
+  z-index: 1;
+  display: block;
+  object-fit: fill;
+}
+
+.cert-decor-lines-tr {
+  position: absolute;
+  top: 8mm;
+  right: 10mm;
+  width: 44mm;
+  height: 44mm;
+  pointer-events: none;
+  opacity: 0.85;
+  z-index: 1;
+  display: block;
+  object-fit: contain;
+}
+
+.cert-decor-lines-bl {
+  position: absolute;
+  bottom: 10mm;
+  left: 10mm;
+  width: 44mm;
+  height: 44mm;
+  pointer-events: none;
+  opacity: 0.85;
+  z-index: 1;
+  display: block;
+  object-fit: contain;
+}
+
+/* Certificate Inner Content */
+.cert-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.cert-header {
+  margin-top: 2mm;
+}
+
+.cert-logo {
+  height: 52px;
+  width: auto;
+  max-width: 175px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.cert-headings {
+  margin-top: 4mm;
+}
+
+.cert-sub-type {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14pt;
+  font-weight: 800;
+  letter-spacing: 0.42em;
+  color: #080D25;
+  text-transform: uppercase;
+  margin-bottom: 2mm;
+}
+
+.cert-main-title {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  font-size: 34pt;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: #FF4938;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 3mm;
+}
+
+.cert-certify-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 0 auto;
+  max-width: 380px;
+}
+
+.cert-certify-line::before,
+.cert-certify-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #D1D5DB;
+}
+
+.cert-certify-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: #080D25;
+  text-transform: uppercase;
+}
+
+/* Recipient Name */
+.cert-recipient-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 38pt;
+  font-weight: 700;
+  color: #080D25;
+  margin: 3mm 0 2mm;
+  letter-spacing: 0.5px;
+}
+
+/* Certificate Body Text */
+.cert-statement {
+  max-width: 195mm;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+  font-size: 9.8pt;
+  line-height: 1.6;
+  color: #1F2937;
+  font-weight: 400;
+}
+
+.cert-statement strong {
+  color: #080D25;
+  font-weight: 600;
+}
+
+/* Middle / Bottom Badges Row */
+.cert-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  margin: 2mm 0 1mm;
+  position: relative;
+  z-index: 5;
+}
+
+.cert-meta-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 110px;
+  text-align: center;
+}
+
+.cert-meta-icon {
+  width: 19px !important;
+  height: 19px !important;
+  max-width: 19px !important;
+  max-height: 19px !important;
+  color: #FF4938 !important;
+  stroke: #FF4938 !important;
+  margin: 0 auto 3px auto !important;
+  display: block !important;
+}
+
+.cert-meta-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 7pt;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #080D25;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.cert-meta-val {
+  font-family: 'Inter', monospace;
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: #080D25;
+  margin-top: 2px;
+  line-height: 1.2;
+}
+
+.cert-medal-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 12px;
+  flex-shrink: 0;
+}
+
+.cert-medal-img {
+  width: 46px;
+  height: 52px;
+  display: block;
+  object-fit: contain;
+}
+
+.cert-qr-verify-box {
+  min-width: 200px;
+}
+
+.cert-qr-inner {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-align: left;
+}
+
+.cert-doc-qr-frame {
+  width: 18mm;
+  height: 18mm;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  padding: 1mm;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(8, 13, 37, 0.08);
+  box-sizing: border-box;
+}
+
+.cert-doc-qr-frame canvas {
+  display: none !important;
+}
+
+.cert-doc-qr-frame img {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.cert-qr-text-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.cert-verify-link {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 7.2pt;
+  font-weight: 700;
+  color: #FF4938;
+  letter-spacing: 0.2px;
+  margin-top: 2px;
+  line-height: 1.25;
+}
+
+.cert-scan-tip {
+  font-size: 6pt;
+  font-weight: 600;
+  color: #64748B;
+  letter-spacing: 0.2px;
+  margin-top: 1px;
+}
+
+/* Signatures */
+.cert-signatures-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 35mm 1mm;
+  position: relative;
+  z-index: 10;
+}
+
+.cert-sig-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 170px;
+}
+
+.cert-sig-wrap {
+  height: 48px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 4px;
+  width: 100%;
+}
+
+.cert-sig-img {
+  max-height: 46px;
+  max-width: 135px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.cert-sig-line {
+  width: 100%;
+  height: 1.2px;
+  background-color: #080D25;
+  margin-bottom: 5px;
+}
+
+.cert-sig-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 9pt;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #080D25;
+  text-transform: uppercase;
+}
+
+.cert-sig-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 7.5pt;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #64748B;
+  text-transform: uppercase;
+}
+
+/* Authentic Security Microprint Strip */
+.cert-security-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 5.5pt;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #94A3B8;
+  text-transform: uppercase;
+  margin-top: 1.5mm;
+  margin-bottom: -1mm;
+  position: relative;
+  z-index: 10;
+}
+
+.cert-security-strip .strip-dot {
+  color: #FF4938;
+  font-size: 5pt;
+  line-height: 1;
+}
+
+/* -------------------------------------------------------------
+   Print Settings for High-Resolution PDF
+   ------------------------------------------------------------- */
+@media print {
+  @page {
+    margin: 0;
+    size: auto;
+  }
+  
+  body * {
+    visibility: hidden;
+  }
+
+  .print-target, .print-target * {
+    visibility: visible;
+  }
+
+  .print-target {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+}
+

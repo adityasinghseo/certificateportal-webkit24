@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" width="320" height="220">
+  <defs>
+    <pattern id="brDots" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="7" cy="7" r="1.4" fill="#FFFFFF" opacity="0.75" />
+    </pattern>
+  </defs>
+
+  <!-- Vibrant Coral Angled Border Stripe -->
+  <polygon points="90,220 320,50 320,220" fill="#FF4938" />
+
+  <!-- Dark Navy Base Polygon -->
+  <polygon points="160,220 320,100 320,220" fill="#080D25" />
+
+  <!-- Dot Grid Pattern Overlay inside Dark Navy -->
+  <polygon points="160,220 320,100 320,220" fill="url(#brDots)" opacity="0.6" />
+</svg>
+
