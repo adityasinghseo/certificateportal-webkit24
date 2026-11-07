@@ -1,4 +1,12 @@
 {
+  "name": "webkit24-certificate-portal",
+  "version": "1.0.0",
+  "description": "Webkit24 Certificate Verification Portal and PDF Document Studio",
+  "main": "dev-server.js",
+  "scripts": {
+    "dev": "node dev-server.js",
+    "start": "node dev-server.js"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.3"
   }

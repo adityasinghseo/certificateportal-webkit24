@@ -621,39 +621,48 @@
 }
 
 .cert-qr-verify-box {
-  min-width: 200px;
+  min-width: 220px;
 }
 
 .cert-qr-inner {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 12px;
   text-align: left;
 }
 
 .cert-doc-qr-frame {
-  width: 21mm;
-  height: 21mm;
-  background: #FFFFFF;
-  border: 1px solid #CBD5E1;
-  padding: 1.2mm;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 1px 3px rgba(8, 13, 37, 0.08);
-  box-sizing: border-box;
+  width: 20mm !important;
+  height: 20mm !important;
+  max-width: 20mm !important;
+  max-height: 20mm !important;
+  min-width: 20mm !important;
+  min-height: 20mm !important;
+  background: #FFFFFF !important;
+  border: 1px solid #CBD5E1 !important;
+  padding: 1.2mm !important;
+  border-radius: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  overflow: hidden !important;
+  box-shadow: 0 1px 3px rgba(8, 13, 37, 0.08) !important;
+  box-sizing: border-box !important;
 }
 
 .cert-doc-qr-frame canvas,
 .cert-doc-qr-frame img {
   width: 100% !important;
   height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
   display: block !important;
-  object-fit: contain;
+  object-fit: contain !important;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .cert-qr-text-col {
@@ -661,11 +670,32 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  white-space: nowrap;
+}
+
+.cert-qr-text-col .cert-meta-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 6.8pt;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #080D25;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.cert-qr-text-col .cert-meta-val {
+  font-family: 'Inter', monospace;
+  font-size: 8.2pt;
+  font-weight: 700;
+  color: #080D25;
+  margin-top: 1px;
+  line-height: 1.25;
+  letter-spacing: 0.3px;
 }
 
 .cert-verify-link {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 7.2pt;
+  font-size: 6.8pt;
   font-weight: 700;
   color: #FF4938;
   letter-spacing: 0.2px;
@@ -674,11 +704,12 @@
 }
 
 .cert-scan-tip {
-  font-size: 6pt;
+  font-size: 5.8pt;
   font-weight: 600;
   color: #64748B;
   letter-spacing: 0.2px;
   margin-top: 1px;
+  line-height: 1.2;
 }
 
 /* Signatures */

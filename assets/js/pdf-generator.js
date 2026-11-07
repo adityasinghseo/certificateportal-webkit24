@@ -1173,18 +1173,23 @@ window.Webkit24PDF = (function () {
             try {
                 new QRCode(qrFrame, {
                     text: verifyUrl,
-                    width: 260,
-                    height: 260,
+                    width: 96,
+                    height: 96,
                     colorDark: '#080D25',
                     colorLight: '#FFFFFF',
                     correctLevel: QRCode.CorrectLevel.M
                 });
 
-                // Ensure high-resolution image is generated for PDF capture
-                setTimeout(() => {
+                // Apply strict containment styling to ensure QR fits perfectly inside its 20mm box
+                const syncQrElements = () => {
                     const cvs = qrFrame.querySelector('canvas');
                     let img = qrFrame.querySelector('img');
                     if (cvs) {
+                        cvs.style.width = '100%';
+                        cvs.style.height = '100%';
+                        cvs.style.maxWidth = '100%';
+                        cvs.style.maxHeight = '100%';
+                        cvs.style.display = 'block';
                         try {
                             const dataUrl = cvs.toDataURL('image/png');
                             if (!img) {
@@ -1192,12 +1197,27 @@ window.Webkit24PDF = (function () {
                                 qrFrame.appendChild(img);
                             }
                             img.src = dataUrl;
-                            img.style.display = 'block';
                             img.style.width = '100%';
                             img.style.height = '100%';
+                            img.style.maxWidth = '100%';
+                            img.style.maxHeight = '100%';
+                            img.style.display = 'block';
+                            img.style.objectFit = 'contain';
+                            cvs.style.display = 'none';
                         } catch (e) {}
                     }
-                }, 50);
+                    if (img) {
+                        img.style.width = '100%';
+                        img.style.height = '100%';
+                        img.style.maxWidth = '100%';
+                        img.style.maxHeight = '100%';
+                        img.style.objectFit = 'contain';
+                    }
+                };
+
+                syncQrElements();
+                setTimeout(syncQrElements, 40);
+                setTimeout(syncQrElements, 120);
             } catch (qrErr) {
                 console.error('QR code generation error:', qrErr);
             }
@@ -1354,16 +1374,30 @@ window.Webkit24PDF = (function () {
                 const qrFrame = document.getElementById('certDocQrCanvas');
                 if (qrFrame) {
                     const cvs = qrFrame.querySelector('canvas');
-                    const img = qrFrame.querySelector('img');
+                    let img = qrFrame.querySelector('img');
                     if (cvs) {
                         try {
                             const dataUrl = cvs.toDataURL('image/png');
-                            if (img) {
-                                img.src = dataUrl;
-                                img.style.display = 'block';
+                            if (!img) {
+                                img = document.createElement('img');
+                                qrFrame.appendChild(img);
                             }
+                            img.src = dataUrl;
+                            img.style.width = '100%';
+                            img.style.height = '100%';
+                            img.style.maxWidth = '100%';
+                            img.style.maxHeight = '100%';
+                            img.style.objectFit = 'contain';
+                            img.style.display = 'block';
+                            cvs.style.display = 'none';
                         } catch (e) {}
-                        cvs.style.display = 'none';
+                    }
+                    if (img) {
+                        img.style.width = '100%';
+                        img.style.height = '100%';
+                        img.style.maxWidth = '100%';
+                        img.style.maxHeight = '100%';
+                        img.style.objectFit = 'contain';
                     }
                 }
             }
