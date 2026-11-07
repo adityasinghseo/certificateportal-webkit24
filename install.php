@@ -110,13 +110,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$alreadyInstalled && $allReqsMet) 
             $passHash = password_hash($adminPass, PASSWORD_BCRYPT);
             $stmt = $pdo->prepare("INSERT OR REPLACE INTO admins (id, username, email, password_hash, created_at) VALUES (1, :user, :email, :pass, CURRENT_TIMESTAMP)");
             if ($dbDriver !== 'sqlite') {
-                $stmt = $pdo->prepare("INSERT INTO admins (username, email, password_hash, created_at) VALUES (:user, :email, :pass, NOW()) ON DUPLICATE KEY UPDATE password_hash = :pass");
+                $stmt = $pdo->prepare("INSERT INTO admins (username, email, password_hash, created_at) VALUES (:user, :email, :pass, NOW()) ON DUPLICATE KEY UPDATE password_hash = :pass_up");
+                $stmt->execute([
+                    ':user'     => $adminUser,
+                    ':email'    => $adminEmail,
+                    ':pass'     => $passHash,
+                    ':pass_up'  => $passHash
+                ]);
+            } else {
+                $stmt->execute([
+                    ':user'  => $adminUser,
+                    ':email' => $adminEmail,
+                    ':pass'  => $passHash
+                ]);
             }
-            $stmt->execute([
-                ':user'  => $adminUser,
-                ':email' => $adminEmail,
-                ':pass'  => $passHash
-            ]);
 
             // Optional Demo Certificate
             if ($seedDemo) {

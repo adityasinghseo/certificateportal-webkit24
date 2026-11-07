@@ -37,9 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (!check_rate_limit($pdo, 'admin_login', MAX_LOGIN_ATTEMPTS, LOGIN_LOCKOUT_MINUTES * 60)) {
                     $error = 'Too many failed login attempts. Please wait 15 minutes before trying again.';
                 } else {
-                    // Check username or email
-                    $stmt = $pdo->prepare("SELECT id, username, email, password_hash FROM admins WHERE username = :user OR email = :user LIMIT 1");
-                    $stmt->execute([':user' => $username]);
+                    // Check username or email using separate parameters for maximum PDO compatibility
+                    $stmt = $pdo->prepare("SELECT id, username, email, password_hash FROM admins WHERE username = :u1 OR email = :u2 LIMIT 1");
+                    $stmt->execute([':u1' => $username, ':u2' => $username]);
                     $admin = $stmt->fetch();
 
                     if ($admin && password_verify($password, $admin['password_hash'])) {
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } catch (Exception $e) {
                 error_log("Login error: " . $e->getMessage());
                 // Provide clear error message to assist host/database diagnostics
-                $error = 'Unable to connect to database. ' . htmlspecialchars($e->getMessage());
+                $error = 'System Notice: ' . htmlspecialchars($e->getMessage());
             }
         }
     }

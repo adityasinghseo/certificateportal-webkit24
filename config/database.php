@@ -41,7 +41,7 @@ class Database {
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES   => false,
+            PDO::ATTR_EMULATE_PREPARES   => true,
         ];
 
         // 1. SQLite Handler
@@ -185,8 +185,8 @@ class Database {
                     ':p' => $adminBcryptHash
                 ]);
             } else {
-                // Ensure default admin password hash is updated to valid 60-character bcrypt
-                $upStmt = $pdo->prepare("UPDATE admins SET password_hash = :p WHERE username = 'admin' AND LENGTH(password_hash) < 60");
+                // Ensure default admin password hash is updated to valid 60-character bcrypt for Webkit24@Admin2026
+                $upStmt = $pdo->prepare("UPDATE admins SET password_hash = :p WHERE username = 'admin' AND (LENGTH(password_hash) < 60 OR password_hash LIKE '$2y$10$89W5%')");
                 $upStmt->execute([':p' => $adminBcryptHash]);
             }
 
