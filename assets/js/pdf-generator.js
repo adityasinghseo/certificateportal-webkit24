@@ -1050,12 +1050,28 @@ window.Webkit24PDF = (function () {
                     ${opts.statement}
                 </div>
 
-                <!-- Metadata Row (Date - Rosette Medal - Unique ID & QR) -->
+                <!-- Metadata Row (Date Card - Rosette Medal - Unique ID & QR Card) -->
                 <div class="cert-meta-row">
-                    <!-- Clean, Prestigious Date Box -->
-                    <div class="cert-meta-box cert-date-box">
-                        <span class="cert-meta-label">DATE</span>
-                        <span class="cert-meta-val">${escapeHtml(d.issue_date_cert || d.issue_date)}</span>
+                    <!-- Symmetrical Prestigious Date Card -->
+                    <div class="cert-meta-box cert-date-verify-box">
+                        <div class="cert-date-inner">
+                            <div class="cert-doc-date-frame" title="Official Date of Issuance">
+                                <svg class="cert-doc-date-svg" viewBox="0 0 24 24" fill="none" stroke="#FF4938" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2.5" ry="2.5"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                    <circle cx="8" cy="14" r="0.9" fill="#FF4938"></circle>
+                                    <circle cx="12" cy="14" r="0.9" fill="#FF4938"></circle>
+                                    <circle cx="16" cy="14" r="0.9" fill="#FF4938"></circle>
+                                </svg>
+                            </div>
+                            <div class="cert-date-text-col">
+                                <span class="cert-meta-label">DATE OF ISSUANCE</span>
+                                <span class="cert-meta-val">${escapeHtml(d.issue_date_cert || d.issue_date)}</span>
+                                <span class="cert-date-sub">Officially Certified Credential</span>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Certified Rosette Medal Badge -->

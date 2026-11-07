@@ -580,10 +580,82 @@
   text-align: center;
 }
 
-.cert-date-box {
-  min-width: 105px;
-  padding: 3px 8px;
-  border-top: 1.6px solid #FF4938;
+/* Date Card (Harmoniously Mirrored with the QR Verification Card) */
+.cert-date-verify-box {
+  min-width: 210px;
+}
+
+.cert-date-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+
+.cert-doc-date-frame {
+  width: 20mm !important;
+  height: 20mm !important;
+  max-width: 20mm !important;
+  max-height: 20mm !important;
+  min-width: 20mm !important;
+  min-height: 20mm !important;
+  background: #FFFFFF !important;
+  border: 1px solid #CBD5E1 !important;
+  padding: 1.2mm !important;
+  border-radius: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  box-shadow: 0 1px 3px rgba(8, 13, 37, 0.08) !important;
+  box-sizing: border-box !important;
+}
+
+.cert-doc-date-svg {
+  width: 22px !important;
+  height: 22px !important;
+  max-width: 22px !important;
+  max-height: 22px !important;
+  display: block !important;
+  color: #FF4938 !important;
+  stroke: #FF4938 !important;
+}
+
+.cert-date-text-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.cert-date-text-col .cert-meta-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 6.8pt;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #080D25;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.cert-date-text-col .cert-meta-val {
+  font-family: 'Inter', monospace;
+  font-size: 8.2pt;
+  font-weight: 700;
+  color: #080D25;
+  margin-top: 1px;
+  line-height: 1.25;
+  letter-spacing: 0.3px;
+}
+
+.cert-date-sub {
+  font-size: 5.8pt;
+  font-weight: 600;
+  color: #64748B;
+  letter-spacing: 0.2px;
+  margin-top: 1px;
+  line-height: 1.2;
 }
 
 .cert-meta-label {
