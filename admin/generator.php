@@ -79,32 +79,49 @@ try {
     <style>
       .studio-layout {
         display: grid;
-        grid-template-columns: 440px 1fr;
+        grid-template-columns: 380px 1fr;
         min-height: calc(100vh - 72px);
+        max-width: 100vw;
+        overflow-x: hidden;
+        transition: grid-template-columns 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .studio-layout.sidebar-collapsed {
+        grid-template-columns: 0px 1fr;
       }
       .studio-sidebar {
         background: #FFFFFF;
         border-right: 1px solid var(--border-color);
-        padding: 24px;
+        padding: 22px 20px;
         overflow-y: auto;
         height: calc(100vh - 72px);
+        box-sizing: border-box;
+        transition: opacity 0.2s ease;
+      }
+      .studio-layout.sidebar-collapsed .studio-sidebar {
+        opacity: 0;
+        pointer-events: none;
+        overflow: hidden;
+        padding: 0;
       }
       .studio-main {
         display: flex;
         flex-direction: column;
-        background: #525659;
+        background: #2D3136;
         height: calc(100vh - 72px);
+        min-width: 0;
+        overflow: hidden;
       }
       .studio-topbar {
         background: #202428;
-        padding: 12px 24px;
+        padding: 10px 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         color: #FFFFFF;
         border-bottom: 1px solid rgba(255,255,255,0.1);
         z-index: 10;
-        gap: 16px;
+        gap: 14px;
+        flex-wrap: wrap;
       }
       .category-toggle-group {
         display: inline-flex;
@@ -173,10 +190,76 @@ try {
       .preview-scroll-area {
         flex: 1;
         overflow: auto;
-        padding: 40px;
+        padding: 24px;
         display: flex;
         justify-content: center;
         align-items: flex-start;
+        box-sizing: border-box;
+      }
+      .preview-scale-wrapper {
+        transform-origin: top center;
+        transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1);
+        display: inline-block;
+        box-sizing: border-box;
+      }
+      .zoom-controls-group {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: var(--radius-sm);
+        padding: 2px 4px;
+        gap: 3px;
+      }
+      .zoom-btn {
+        background: transparent;
+        border: none;
+        color: #CBD5E1;
+        padding: 4px 8px;
+        font-size: 0.74rem;
+        font-weight: 600;
+        border-radius: 3px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s ease;
+      }
+      .zoom-btn:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: #FFFFFF;
+      }
+      .zoom-btn.active {
+        background: rgba(255, 255, 255, 0.25);
+        color: #FFFFFF;
+        font-weight: 700;
+      }
+      .zoom-level-badge {
+        font-size: 0.74rem;
+        font-weight: 700;
+        font-family: var(--font-heading);
+        color: #F8FAFC;
+        min-width: 44px;
+        text-align: center;
+        padding: 0 4px;
+      }
+      .sidebar-toggle-btn {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: #E2E8F0;
+        padding: 6px 11px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.15s ease;
+      }
+      .sidebar-toggle-btn:hover {
+        background: rgba(255, 255, 255, 0.18);
+        color: #FFFFFF;
       }
       .form-section-title {
         font-size: 0.78rem;
@@ -394,8 +477,30 @@ Participate in team meetings, code reviews, and brainstorming sessions.</textare
                     </div>
                 </div>
 
-                <!-- Print & PDF Download Actions -->
-                <div style="display: flex; align-items: center; gap: 10px;">
+                <!-- Toolbar Actions: Sidebar Toggle, Zoom Controls, Print & Download -->
+                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                    <!-- Sidebar Toggle Button -->
+                    <button type="button" class="sidebar-toggle-btn" id="btnToggleSidebar" title="Toggle Sidebar for Full-Screen Document View">
+                        <span id="sidebarToggleText">◀ Hide Form</span>
+                    </button>
+
+                    <!-- Interactive Zoom Controls -->
+                    <div class="zoom-controls-group">
+                        <button type="button" class="zoom-btn" id="btnZoomOut" title="Zoom Out">
+                            <svg viewBox="0 0 20 20" fill="currentColor" style="width: 14px; height: 14px;"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+                        </button>
+                        <span class="zoom-level-badge" id="zoomLevelBadge">Fit</span>
+                        <button type="button" class="zoom-btn" id="btnZoomIn" title="Zoom In">
+                            <svg viewBox="0 0 20 20" fill="currentColor" style="width: 14px; height: 14px;"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+                        </button>
+                        <button type="button" class="zoom-btn active" id="btnZoomFit" title="Fit Entire Document in Screen">
+                            Fit
+                        </button>
+                        <button type="button" class="zoom-btn" id="btnZoom100" title="Actual Size (100%)">
+                            100%
+                        </button>
+                    </div>
+
                     <button type="button" class="btn btn-secondary btn-sm" id="btnPrintActiveDoc">
                         <svg viewBox="0 0 20 20" fill="currentColor" style="width: 16px; height: 16px;">
                             <path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd" />
@@ -413,10 +518,13 @@ Participate in team meetings, code reviews, and brainstorming sessions.</textare
             </div>
 
             <!-- Preview Canvas Scroll Area -->
-            <div class="preview-scroll-area">
-                <!-- Active Document Container Rendered Dynamically -->
-                <div id="activeDocRenderArea">
-                    <!-- Rendered dynamically by pdf-generator.js -->
+            <div class="preview-scroll-area" id="previewScrollArea">
+                <!-- Scaled responsive wrapper so the document fits 100% of the screen -->
+                <div id="previewScaleWrapper" class="preview-scale-wrapper">
+                    <!-- Active Document Container Rendered Dynamically -->
+                    <div id="activeDocRenderArea">
+                        <!-- Rendered dynamically by pdf-generator.js -->
+                    </div>
                 </div>
             </div>
         </main>

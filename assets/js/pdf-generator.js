@@ -1163,6 +1163,55 @@ window.Webkit24PDF = (function () {
         }
     }
 
+    let zoomMode = 'fit'; // 'fit' or 'manual'
+    let currentScale = 1.0;
+
+    /**
+     * Auto-Fit & Responsive Zoom Controller
+     * Ensures document fits 100% inside any viewport width/height without horizontal/vertical cut-offs.
+     */
+    function applyZoom(modeOrScale) {
+        const scrollArea = document.getElementById('previewScrollArea') || document.querySelector('.preview-scroll-area');
+        const wrapper = document.getElementById('previewScaleWrapper');
+        const root = document.getElementById('currentDocRenderRoot');
+        if (!scrollArea || !wrapper || !root) return;
+
+        let scale = 1.0;
+        if (modeOrScale === 'fit') {
+            zoomMode = 'fit';
+            const availW = Math.max(scrollArea.clientWidth - 50, 320);
+            const availH = Math.max(scrollArea.clientHeight - 50, 320);
+            const docW = root.offsetWidth || (currentDocType.includes('certificate') ? 1122 : 794);
+            const docH = root.offsetHeight || (currentDocType.includes('certificate') ? 790 : 1122);
+            const scaleW = availW / docW;
+            const scaleH = availH / docH;
+            scale = Math.min(scaleW, scaleH);
+            if (scale > 1.0) scale = 1.0;
+            if (scale < 0.25) scale = 0.25;
+        } else if (typeof modeOrScale === 'number') {
+            zoomMode = 'manual';
+            scale = Math.max(0.25, Math.min(2.0, Math.round(modeOrScale * 100) / 100));
+        }
+
+        currentScale = scale;
+        wrapper.style.transform = `scale(${scale})`;
+
+        // Adjust layout margins so scrollbars adapt to the visual scaled boundary
+        const docH = root.offsetHeight || 800;
+        const docW = root.offsetWidth || 1122;
+        wrapper.style.marginBottom = `${(docH * scale) - docH}px`;
+        wrapper.style.marginRight = `${(docW * scale) - docW}px`;
+
+        // Update Zoom UI buttons & badge
+        const badge = document.getElementById('zoomLevelBadge');
+        if (badge) badge.textContent = `${Math.round(scale * 100)}%`;
+
+        const btnFit = document.getElementById('btnZoomFit');
+        const btn100 = document.getElementById('btnZoom100');
+        if (btnFit) btnFit.classList.toggle('active', zoomMode === 'fit');
+        if (btn100) btn100.classList.toggle('active', zoomMode === 'manual' && Math.round(scale * 100) === 100);
+    }
+
     /**
      * Render the active document into preview canvas
      */
@@ -1238,6 +1287,9 @@ window.Webkit24PDF = (function () {
                 console.error('QR code generation error:', qrErr);
             }
         }
+
+        // Auto-scale preview to fit screen without overlapping
+        setTimeout(() => applyZoom(zoomMode), 30);
     }
 
     /**
@@ -1365,6 +1417,17 @@ window.Webkit24PDF = (function () {
             dlBtn.innerHTML = '<span>Exporting Single-Page PDF...</span>';
         }
 
+        // Temporarily reset zoom transformation for 1:1 true-size PDF capture
+        const scaleWrapper = document.getElementById('previewScaleWrapper');
+        const prevTransform = scaleWrapper ? scaleWrapper.style.transform : '';
+        const prevMarginBottom = scaleWrapper ? scaleWrapper.style.marginBottom : '';
+        const prevMarginRight = scaleWrapper ? scaleWrapper.style.marginRight : '';
+        if (scaleWrapper) {
+            scaleWrapper.style.transform = 'none';
+            scaleWrapper.style.marginBottom = '0px';
+            scaleWrapper.style.marginRight = '0px';
+        }
+
         try {
             // Strictly enforce exact height limit on target before capturing
             if (isLandscape) {
@@ -1429,6 +1492,11 @@ window.Webkit24PDF = (function () {
             alert('Could not generate PDF directly. Opening print dialog instead.');
             window.print();
         } finally {
+            if (scaleWrapper) {
+                scaleWrapper.style.transform = prevTransform;
+                scaleWrapper.style.marginBottom = prevMarginBottom;
+                scaleWrapper.style.marginRight = prevMarginRight;
+            }
             if (dlBtn) {
                 dlBtn.disabled = false;
                 dlBtn.innerHTML = originalText;
@@ -1527,6 +1595,53 @@ window.Webkit24PDF = (function () {
                 downloadBtn.addEventListener('click', () => downloadPdf());
             }
 
+            // Interactive Zoom Controls
+            const btnZoomIn = document.getElementById('btnZoomIn');
+            const btnZoomOut = document.getElementById('btnZoomOut');
+            const btnZoomFit = document.getElementById('btnZoomFit');
+            const btnZoom100 = document.getElementById('btnZoom100');
+            const btnToggleSidebar = document.getElementById('btnToggleSidebar');
+
+            if (btnZoomIn) {
+                btnZoomIn.addEventListener('click', () => applyZoom(currentScale + 0.1));
+            }
+            if (btnZoomOut) {
+                btnZoomOut.addEventListener('click', () => applyZoom(currentScale - 0.1));
+            }
+            if (btnZoomFit) {
+                btnZoomFit.addEventListener('click', () => applyZoom('fit'));
+            }
+            if (btnZoom100) {
+                btnZoom100.addEventListener('click', () => applyZoom(1.0));
+            }
+
+            // Collapsible Sidebar for Wide View
+            if (btnToggleSidebar) {
+                btnToggleSidebar.addEventListener('click', () => {
+                    const layout = document.querySelector('.studio-layout');
+                    const text = document.getElementById('sidebarToggleText');
+                    if (layout) {
+                        layout.classList.toggle('sidebar-collapsed');
+                        const isCollapsed = layout.classList.contains('sidebar-collapsed');
+                        if (text) {
+                            text.textContent = isCollapsed ? '▶ Show Form' : '◀ Hide Form';
+                        }
+                        setTimeout(() => applyZoom(zoomMode === 'fit' ? 'fit' : currentScale), 260);
+                    }
+                });
+            }
+
+            // Window resize auto-recalibration
+            let resizeTimer = null;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (zoomMode === 'fit') {
+                        applyZoom('fit');
+                    }
+                }, 100);
+            });
+
             // Initial render of sub-tabs and active preview
             renderSubTabs();
             renderPreviews();
@@ -1535,6 +1650,7 @@ window.Webkit24PDF = (function () {
         loadCertificateRecord: loadCertificateRecord,
         switchDoc: switchDoc,
         switchCategory: switchCategory,
-        downloadPdf: downloadPdf
+        downloadPdf: downloadPdf,
+        applyZoom: applyZoom
     };
 })();
