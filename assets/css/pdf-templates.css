@@ -726,7 +726,8 @@
 }
 
 .cert-doc-qr-frame canvas,
-.cert-doc-qr-frame img {
+.cert-doc-qr-frame img,
+.cert-qr-img {
   width: 100% !important;
   height: 100% !important;
   max-width: 100% !important;
@@ -734,6 +735,7 @@
   display: block !important;
   object-fit: contain !important;
   image-rendering: -webkit-optimize-contrast;
+  image-rendering: pixelated;
   image-rendering: crisp-edges;
   margin: 0 !important;
   padding: 0 !important;

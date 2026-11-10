@@ -1260,6 +1260,64 @@ window.Webkit24PDF = (function () {
     }
 
     /**
+     * Renders an ultra-sharp, high-DPI QR code with standard white quiet zone (margin)
+     * and Level H error correction for instant phone camera & optical scan compatibility.
+     */
+    function renderCrispCertificateQr(container, text) {
+        if (!container || typeof QRCode === 'undefined') return;
+        container.innerHTML = '';
+
+        const tempDiv = document.createElement('div');
+        tempDiv.style.position = 'absolute';
+        tempDiv.style.left = '-9999px';
+        tempDiv.style.top = '-9999px';
+        document.body.appendChild(tempDiv);
+
+        try {
+            const rawSize = 380;
+            new QRCode(tempDiv, {
+                text: text,
+                width: rawSize,
+                height: rawSize,
+                colorDark: '#000000',
+                colorLight: '#FFFFFF',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            const qrCanvas = tempDiv.querySelector('canvas');
+            if (qrCanvas) {
+                // ISO/IEC 18004 4-module quiet zone (solid pure white margin)
+                const margin = Math.round(rawSize * 0.08);
+                const finalSize = rawSize + (margin * 2);
+                const finalCanvas = document.createElement('canvas');
+                finalCanvas.width = finalSize;
+                finalCanvas.height = finalSize;
+                const ctx = finalCanvas.getContext('2d');
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(0, 0, finalSize, finalSize);
+                ctx.drawImage(qrCanvas, margin, margin, rawSize, rawSize);
+
+                const img = document.createElement('img');
+                img.src = finalCanvas.toDataURL('image/png');
+                img.alt = 'Scan to verify credential';
+                img.className = 'cert-qr-img';
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '100%';
+                img.style.display = 'block';
+                img.style.objectFit = 'contain';
+                img.style.imageRendering = '-webkit-optimize-contrast';
+                container.appendChild(img);
+            }
+        } catch (err) {
+            console.error('Error generating crisp certificate QR:', err);
+        } finally {
+            tempDiv.remove();
+        }
+    }
+
+    /**
      * Render the active document into preview canvas
      */
     function renderPreviews() {
@@ -1279,60 +1337,9 @@ window.Webkit24PDF = (function () {
 
         // Generate dynamic high-resolution QR code if document has QR canvas (Certificates)
         const qrFrame = document.getElementById('certDocQrCanvas');
-        if (qrFrame && typeof QRCode !== 'undefined') {
-            qrFrame.innerHTML = '';
+        if (qrFrame) {
             const verifyUrl = 'https://certificate.webkit24.com/?id=' + encodeURIComponent(state.certificate_id);
-            try {
-                new QRCode(qrFrame, {
-                    text: verifyUrl,
-                    width: 96,
-                    height: 96,
-                    colorDark: '#080D25',
-                    colorLight: '#FFFFFF',
-                    correctLevel: QRCode.CorrectLevel.M
-                });
-
-                // Apply strict containment styling to ensure QR fits perfectly inside its 20mm box
-                const syncQrElements = () => {
-                    const cvs = qrFrame.querySelector('canvas');
-                    let img = qrFrame.querySelector('img');
-                    if (cvs) {
-                        cvs.style.width = '100%';
-                        cvs.style.height = '100%';
-                        cvs.style.maxWidth = '100%';
-                        cvs.style.maxHeight = '100%';
-                        cvs.style.display = 'block';
-                        try {
-                            const dataUrl = cvs.toDataURL('image/png');
-                            if (!img) {
-                                img = document.createElement('img');
-                                qrFrame.appendChild(img);
-                            }
-                            img.src = dataUrl;
-                            img.style.width = '100%';
-                            img.style.height = '100%';
-                            img.style.maxWidth = '100%';
-                            img.style.maxHeight = '100%';
-                            img.style.display = 'block';
-                            img.style.objectFit = 'contain';
-                            cvs.style.display = 'none';
-                        } catch (e) {}
-                    }
-                    if (img) {
-                        img.style.width = '100%';
-                        img.style.height = '100%';
-                        img.style.maxWidth = '100%';
-                        img.style.maxHeight = '100%';
-                        img.style.objectFit = 'contain';
-                    }
-                };
-
-                syncQrElements();
-                setTimeout(syncQrElements, 40);
-                setTimeout(syncQrElements, 120);
-            } catch (qrErr) {
-                console.error('QR code generation error:', qrErr);
-            }
+            renderCrispCertificateQr(qrFrame, verifyUrl);
         }
 
         // Auto-scale preview to fit screen without overlapping
@@ -1498,33 +1505,9 @@ window.Webkit24PDF = (function () {
             // Ensure QR image is fully synchronized before capturing canvas
             if (isLandscape) {
                 const qrFrame = document.getElementById('certDocQrCanvas');
-                if (qrFrame) {
-                    const cvs = qrFrame.querySelector('canvas');
-                    let img = qrFrame.querySelector('img');
-                    if (cvs) {
-                        try {
-                            const dataUrl = cvs.toDataURL('image/png');
-                            if (!img) {
-                                img = document.createElement('img');
-                                qrFrame.appendChild(img);
-                            }
-                            img.src = dataUrl;
-                            img.style.width = '100%';
-                            img.style.height = '100%';
-                            img.style.maxWidth = '100%';
-                            img.style.maxHeight = '100%';
-                            img.style.objectFit = 'contain';
-                            img.style.display = 'block';
-                            cvs.style.display = 'none';
-                        } catch (e) {}
-                    }
-                    if (img) {
-                        img.style.width = '100%';
-                        img.style.height = '100%';
-                        img.style.maxWidth = '100%';
-                        img.style.maxHeight = '100%';
-                        img.style.objectFit = 'contain';
-                    }
+                if (qrFrame && (!qrFrame.querySelector('img') || qrFrame.querySelector('canvas'))) {
+                    const verifyUrl = 'https://certificate.webkit24.com/?id=' + encodeURIComponent(state.certificate_id);
+                    renderCrispCertificateQr(qrFrame, verifyUrl);
                 }
             }
 

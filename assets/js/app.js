@@ -131,16 +131,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const verifyUrl = cert.verification_url || `${window.location.origin}/?id=${encodeURIComponent(cert.certificate_id)}`;
                 if (shareUrlInput) shareUrlInput.value = verifyUrl;
 
-                // Render QR code
+                // Render QR code with high resolution and Level H error correction
                 if (publicQrCodeContainer && typeof QRCode !== 'undefined') {
                     publicQrCodeContainer.innerHTML = '';
                     currentQr = new QRCode(publicQrCodeContainer, {
                         text: verifyUrl,
-                        width: 90,
-                        height: 90,
-                        colorDark: '#080D25',
+                        width: 180,
+                        height: 180,
+                        colorDark: '#000000',
                         colorLight: '#FFFFFF',
-                        correctLevel: QRCode.CorrectLevel.M
+                        correctLevel: QRCode.CorrectLevel.H
                     });
                 }
 

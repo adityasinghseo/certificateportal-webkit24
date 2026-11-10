@@ -482,16 +482,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnOpenPdfStudio = document.getElementById('btnOpenPdfStudio');
         if (btnOpenPdfStudio) btnOpenPdfStudio.href = `generator.php?id=${cert.id}`;
 
-        // Render QR
+        // Render QR with high clarity and Level H error correction
         if (modalQrCode && typeof QRCode !== 'undefined') {
             modalQrCode.innerHTML = '';
             modalQrInstance = new QRCode(modalQrCode, {
                 text: currentViewingUrl,
-                width: 140,
-                height: 140,
-                colorDark: '#080D25',
+                width: 220,
+                height: 220,
+                colorDark: '#000000',
                 colorLight: '#FFFFFF',
-                correctLevel: QRCode.CorrectLevel.M
+                correctLevel: QRCode.CorrectLevel.H
             });
         }
 
