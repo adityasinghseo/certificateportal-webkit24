@@ -26,10 +26,10 @@ $prefillId = clean_certificate_id($_GET['id'] ?? '');
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Core Stylesheets -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.1.0">
     
     <!-- Standalone Client-side QR Code Generator -->
-    <script src="assets/js/qrcode.min.js"></script>
+    <script src="assets/js/qrcode.min.js?v=2.1.0"></script>
 </head>
 <body class="site-body">
     <!-- Top Announcement / Trust Banner -->
@@ -401,7 +401,7 @@ $prefillId = clean_certificate_id($_GET['id'] ?? '');
     </footer>
 
     <!-- App JavaScript -->
-    <script src="assets/js/app.js"></script>
+    <script src="assets/js/app.js?v=2.1.0"></script>
 </body>
 </html>
 

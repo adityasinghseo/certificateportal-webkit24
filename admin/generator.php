@@ -69,13 +69,13 @@ try {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/admin.css">
-    <link rel="stylesheet" href="../assets/css/pdf-templates.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=2.1.0">
+    <link rel="stylesheet" href="../assets/css/admin.css?v=2.1.0">
+    <link rel="stylesheet" href="../assets/css/pdf-templates.css?v=2.1.0">
     
     <!-- QR Code Generator & Standalone PDF Exporter -->
-    <script src="../assets/js/qrcode.min.js"></script>
-    <script src="../assets/js/html2pdf.bundle.min.js"></script>
+    <script src="../assets/js/qrcode.min.js?v=2.1.0"></script>
+    <script src="../assets/js/html2pdf.bundle.min.js?v=2.1.0"></script>
     <style>
       .studio-layout {
         display: grid;
@@ -530,7 +530,7 @@ Participate in team meetings, code reviews, and brainstorming sessions.</textare
         </main>
     </div>
 
-    <script src="../assets/js/pdf-generator.js"></script>
+    <script src="../assets/js/pdf-generator.js?v=2.1.0"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             window.Webkit24PDF.init();

@@ -26,11 +26,11 @@ $csrfToken = get_csrf_token();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/admin.css">
-    <link rel="stylesheet" href="../assets/css/pdf-templates.css">
-    <script src="../assets/js/qrcode.min.js"></script>
-    <script src="../assets/js/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/style.css?v=2.1.0">
+    <link rel="stylesheet" href="../assets/css/admin.css?v=2.1.0">
+    <link rel="stylesheet" href="../assets/css/pdf-templates.css?v=2.1.0">
+    <script src="../assets/js/qrcode.min.js?v=2.1.0"></script>
+    <script src="../assets/js/html2pdf.bundle.min.js?v=2.1.0"></script>
 </head>
 <body class="admin-body">
     <!-- CSRF Token Meta -->
@@ -465,7 +465,7 @@ $csrfToken = get_csrf_token();
     <!-- Toast Notification -->
     <div id="toast" class="toast-notification"></div>
 
-    <script src="../assets/js/admin.js"></script>
+    <script src="../assets/js/admin.js?v=2.1.0"></script>
 </body>
 </html>
 
