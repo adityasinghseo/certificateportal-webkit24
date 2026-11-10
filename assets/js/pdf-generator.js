@@ -994,11 +994,66 @@ window.Webkit24PDF = (function () {
             blCtx.stroke();
         });
 
+        // 5. Date Calendar Icon (Vibrant Brand Coral with Navy Binder Rings and Dot Grid)
+        const dateCanvas = document.createElement('canvas');
+        dateCanvas.width = 120;
+        dateCanvas.height = 120;
+        const dateCtx = dateCanvas.getContext('2d');
+        dateCtx.scale(2.5, 2.5); // 48x48 coordinate space
+
+        // Calendar body (rounded rectangle)
+        dateCtx.fillStyle = '#FFF8F7';
+        dateCtx.strokeStyle = '#FF4938';
+        dateCtx.lineWidth = 2.4;
+        dateCtx.beginPath();
+        if (dateCtx.roundRect) {
+            dateCtx.roundRect(6, 10, 36, 32, 5);
+        } else {
+            dateCtx.rect(6, 10, 36, 32);
+        }
+        dateCtx.fill();
+        dateCtx.stroke();
+
+        // Header bar (coral fill)
+        dateCtx.fillStyle = '#FF4938';
+        dateCtx.beginPath();
+        if (dateCtx.roundRect) {
+            dateCtx.roundRect(6, 10, 36, 10, [5, 5, 0, 0]);
+        } else {
+            dateCtx.rect(6, 10, 36, 10);
+        }
+        dateCtx.fill();
+
+        // Top Binder Rings (Dark Navy)
+        dateCtx.fillStyle = '#080D25';
+        dateCtx.beginPath();
+        if (dateCtx.roundRect) {
+            dateCtx.roundRect(14, 6, 3.5, 8, 1.75);
+            dateCtx.roundRect(30.5, 6, 3.5, 8, 1.75);
+        } else {
+            dateCtx.rect(14, 6, 3.5, 8);
+            dateCtx.rect(30.5, 6, 3.5, 8);
+        }
+        dateCtx.fill();
+
+        // Calendar Grid Dots
+        const dots = [
+            [15, 26, '#FF4938'], [24, 26, '#FF4938'], [33, 26, '#FF4938'],
+            [15, 34, '#FF4938'], [24, 34, '#FF4938'], [33, 34, '#080D25']
+        ];
+        dots.forEach(([x, y, col]) => {
+            dateCtx.fillStyle = col;
+            dateCtx.beginPath();
+            dateCtx.arc(x, y, 1.8, 0, Math.PI * 2);
+            dateCtx.fill();
+        });
+
         cachedCornerPngs = {
             tl: tlCanvas.toDataURL('image/png'),
             br: brCanvas.toDataURL('image/png'),
             tr: trCanvas.toDataURL('image/png'),
-            bl: blCanvas.toDataURL('image/png')
+            bl: blCanvas.toDataURL('image/png'),
+            dateIcon: dateCanvas.toDataURL('image/png')
         };
 
         return cachedCornerPngs;
@@ -1056,15 +1111,7 @@ window.Webkit24PDF = (function () {
                     <div class="cert-meta-box cert-date-verify-box">
                         <div class="cert-date-inner">
                             <div class="cert-doc-date-frame" title="Official Date of Issuance">
-                                <svg class="cert-doc-date-svg" viewBox="0 0 24 24" fill="none" stroke="#FF4938" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="3" y="4" width="18" height="18" rx="2.5" ry="2.5"></rect>
-                                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                                    <circle cx="8" cy="14" r="0.9" fill="#FF4938"></circle>
-                                    <circle cx="12" cy="14" r="0.9" fill="#FF4938"></circle>
-                                    <circle cx="16" cy="14" r="0.9" fill="#FF4938"></circle>
-                                </svg>
+                                <img src="${decorPng.dateIcon}" alt="Date" class="cert-doc-date-img">
                             </div>
                             <div class="cert-date-text-col">
                                 <span class="cert-meta-label">DATE OF ISSUANCE</span>

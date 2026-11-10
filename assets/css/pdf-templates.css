@@ -611,12 +611,14 @@
   box-sizing: border-box !important;
 }
 
-.cert-doc-date-svg {
+.cert-doc-date-svg,
+.cert-doc-date-img {
   width: 22px !important;
   height: 22px !important;
   max-width: 22px !important;
   max-height: 22px !important;
   display: block !important;
+  object-fit: contain !important;
   color: #FF4938 !important;
   stroke: #FF4938 !important;
 }

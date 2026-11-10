@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <!-- Calendar Body -->
+  <rect x="6" y="10" width="36" height="32" rx="4" fill="#FFF8F7" stroke="#FF4938" stroke-width="2.5" />
+  <!-- Header Bar -->
+  <path d="M6 14 C6 11.8 7.8 10 10 10 L38 10 C40.2 10 42 11.8 42 14 L42 19 L6 19 Z" fill="#FF4938" />
+  <!-- Binder Rings -->
+  <rect x="14" y="6" width="3" height="8" rx="1.5" fill="#080D25" />
+  <rect x="31" y="6" width="3" height="8" rx="1.5" fill="#080D25" />
+  <!-- Calendar Grid Dots -->
+  <circle cx="15" cy="26" r="1.8" fill="#FF4938" />
+  <circle cx="24" cy="26" r="1.8" fill="#FF4938" />
+  <circle cx="33" cy="26" r="1.8" fill="#FF4938" />
+  <circle cx="15" cy="34" r="1.8" fill="#FF4938" />
+  <circle cx="24" cy="34" r="1.8" fill="#FF4938" />
+  <circle cx="33" cy="34" r="1.8" fill="#080D25" />
+</svg>
